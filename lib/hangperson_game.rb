@@ -10,11 +10,14 @@ class HangpersonGame
   attr_reader :guesses
   attr_reader :wrong_guesses 
   attr_reader :word
+  attr_reader :word_with_guesses
+  attr_reader :check_win_or_lose
   
   def initialize(word)
     @word = word #mystery word
     @wrong_guesses = ''
     @guesses = ''
+    @attempt = 0
   end
 
   # CLASS method -ref with class name
@@ -35,7 +38,7 @@ class HangpersonGame
     end
     raise ArgumentError, 'Argument is not string' unless char.length == 1
     raise ArgumentError, 'Argument is not string' unless char.match(/[a-zA-Z]/) 
-
+    @attempt += 1
     pick = char.chr.downcase
 
     #catch replicant entries
@@ -50,20 +53,31 @@ class HangpersonGame
     #actual match
     if @word.match("#{pick}") != nil
       guesses << pick # 1st char
-      return true
+      rval =  true
     else
       wrong_guesses << pick # 
-      return false
+      rval = false
     end
-  end 
-
-  #def guess_several_letters charstr
-    #itereate every char
-   # charstr.each_char { |i|
-    #  guess(i)
-    #}
-  #end 
+    
+    # build up guess
+    @word_with_guesses = '';
+    @check_win_or_lose = :win
+    word.each_char  { |a|
+      if  @guesses.match("#{a}") != nil  
+        @word_with_guesses << a
+      else
+        @word_with_guesses << '-'
+        @check_win_or_lose = :play
+      end
+    }
+    if @attempt >= 7 
+      @check_win_or_lose = :lose
+    end
+    
+    return rval
+  end
   
+
   # 
   def SpillBeans
     puts @word
@@ -79,9 +93,10 @@ end
  #guess_several_letters(bob, 'aaloq')
 #puts bob.guess("a")
 #puts bob.guess(nil)
-#puts bob.guess("q")
+#puts bob.guess("o")
 #puts bob.guess("a")
 #puts bob.guess("l")
+#puts bob.word_with_guesses
 #puts bob.guesses
 #puts bob.wrong_guesses
 #bob.SpillBeansa
