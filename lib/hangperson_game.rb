@@ -7,9 +7,14 @@ class HangpersonGame
 
   # def initialize()
   # end
+  attr_reader :guesses
+  attr_reader :wrong_guesses 
+  attr_reader :word
   
   def initialize(word)
-    @word = word
+    @word = word #mystery word
+    @wrong_guesses = ''
+    @guesses = ''
   end
 
   # CLASS method -ref with class name
@@ -20,6 +25,7 @@ class HangpersonGame
     Net::HTTP.post_form(uri ,{}).body
   end
   
+  # 
   def SpillBeans
     puts @word
   end
@@ -27,6 +33,7 @@ class HangpersonGame
 end
 
 
-RandWrd = HangpersonGame.get_random_word
-bob = HangpersonGame.new(RandWrd)
-bob.SpillBeans
+#RandWrd = HangpersonGame.get_random_word
+#bob = HangpersonGame.new(RandWrd)
+#puts bob.guesses
+#bob.SpillBeansa
