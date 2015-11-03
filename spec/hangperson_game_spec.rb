@@ -44,7 +44,7 @@ describe HangpersonGame do
         expect(@game.wrong_guesses).to eq('z')
       end
       it 'returns true' do
-        expect(@valid).not_to be true #false
+        expect(@valid).not_to be false
       end
     end
     context 'same letter repeatedly' do

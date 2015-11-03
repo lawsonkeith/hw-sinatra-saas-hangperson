@@ -36,8 +36,14 @@ class HangpersonGame
       raise ArgumentError, 'Argument is not string' 
       return false
     end
-    raise ArgumentError, 'Argument is not string' unless char.length == 1
-    raise ArgumentError, 'Argument is not string' unless char.match(/[a-zA-Z]/) 
+    if char.length != 1
+      raise ArgumentError, 'Argument is not string'
+      return false
+    end 
+    if char.match(/[a-zA-Z]/) == nil
+      raise ArgumentError, 'Argument is not string' 
+      return false
+    end
     @attempt += 1
     pick = char.chr.downcase
 
@@ -53,13 +59,11 @@ class HangpersonGame
     #actual match
     if @word.match("#{pick}") != nil
       guesses << pick # 1st char
-      rval =  true
     else
       wrong_guesses << pick # 
-      rval = false
     end
     
-    # build up guess
+    # build up guess string i.e. "----a-e"
     @word_with_guesses = '';
     @check_win_or_lose = :win
     word.each_char  { |a|
@@ -70,11 +74,13 @@ class HangpersonGame
         @check_win_or_lose = :play
       end
     }
-    if @attempt >= 7 
+    
+    #check game status
+    if @attempt >= 6
       @check_win_or_lose = :lose
     end
     
-    return rval
+    return true
   end
   
 
@@ -90,7 +96,7 @@ end
 #bob = HangpersonGame.new(RandWrd)
 #bob = HangpersonGame.new("aalo")
 #puts bob.guesses
- #guess_several_letters(bob, 'aaloq')
+ 
 #puts bob.guess("a")
 #puts bob.guess(nil)
 #puts bob.guess("o")
