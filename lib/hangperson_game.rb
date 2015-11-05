@@ -18,6 +18,7 @@ class HangpersonGame
     @wrong_guesses = ''
     @guesses = ''
     @attempt = 0
+    @already = ''
   end
 
   # CLASS method -ref with class name
@@ -49,10 +50,12 @@ class HangpersonGame
 
     #catch replicant entries
     if @guesses.match("#{pick}") != nil
+ #     @word_with_guesses << "You have already used that letter"
       return false
     end 
   
     if @wrong_guesses.match("#{pick}") != nil
+#    @word_with_guesses << "You have already used that letter"
       return false
     end 
       
