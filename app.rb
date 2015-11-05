@@ -79,7 +79,7 @@ class HangpersonApp < Sinatra::Base
   
   get '/lose' do
     ### YOUR CODE HERE ###
-    flash[:message] = "Sorry, you lose!"
+    flash[:message] = "Sorry, you lose!" << @game.word
     erb :lose # You may change/remove this line
   end
   
