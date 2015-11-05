@@ -45,7 +45,7 @@ class HangpersonGame
       raise ArgumentError, 'Argument is not string' 
       return false
     end
-    @attempt += 1
+    
     pick = char.chr.downcase
 
     #catch replicant entries
@@ -64,6 +64,7 @@ class HangpersonGame
       guesses << pick # 1st char
     else
       wrong_guesses << pick # 
+      @attempt += 1
     end
     
     # build up guess string i.e. "----a-e"
@@ -79,7 +80,7 @@ class HangpersonGame
     }
     
     #check game status
-    if @attempt >= 6
+    if @attempt > 6
       @check_win_or_lose = :lose
     end
     
